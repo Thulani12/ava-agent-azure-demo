@@ -1,0 +1,29 @@
+
+@startuml
+skinparam componentStyle rectangle
+skinparam monochrome true
+
+actor User
+User -> Streamlit_UI : Enters Query
+
+component Streamlit_UI
+component "FastAPI + LangGraph" as Backend
+component "Azure AI Foundry
+(AVA Agent)" as Foundry
+database "Azure Blob
+(Knowledge)" as Blob
+database "Azure AI Search" as Search
+component "Azure OpenAI
+(GPT-4)" as OpenAI
+
+Streamlit_UI -> Backend : Sends Query
+Backend -> Foundry : Forwards Request
+Foundry -> Search : Retrieves Vector Match
+Foundry -> Blob : Gets Source Doc
+Foundry -> OpenAI : Summarizes / Generates Response
+OpenAI --> Foundry : Response
+Foundry --> Backend : Final Reply
+Backend --> Streamlit_UI : Sends Answer
+Streamlit_UI --> User : Displays Result
+
+@enduml

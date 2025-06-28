@@ -1,0 +1,11 @@
+
+project_name: "standardbank-ava"
+agents:
+  - name: "ava-agent"
+    source: "azureopenai"
+    model: "gpt-4"
+    embeddings: "text-embedding-ada-002"
+    vector_store: "azuresearch"
+    knowledge_sources:
+      - type: blob
+        container: "ava-knowledge"
